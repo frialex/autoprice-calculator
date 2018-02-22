@@ -1,0 +1,8 @@
+C:\dev-demo\csharp-demos\autoprice-calculator\autoprice-calculator\bin\Debug\autoprice-calculator.exe.config
+C:\dev-demo\csharp-demos\autoprice-calculator\autoprice-calculator\bin\Debug\autoprice-calculator.exe
+C:\dev-demo\csharp-demos\autoprice-calculator\autoprice-calculator\bin\Debug\autoprice-calculator.pdb
+C:\dev-demo\csharp-demos\autoprice-calculator\autoprice-calculator\bin\Debug\nunit.framework.dll
+C:\dev-demo\csharp-demos\autoprice-calculator\autoprice-calculator\bin\Debug\nunit.framework.xml
+C:\dev-demo\csharp-demos\autoprice-calculator\autoprice-calculator\obj\Debug\autoprice-calculator.csprojResolveAssemblyReference.cache
+C:\dev-demo\csharp-demos\autoprice-calculator\autoprice-calculator\obj\Debug\autoprice-calculator.exe
+C:\dev-demo\csharp-demos\autoprice-calculator\autoprice-calculator\obj\Debug\autoprice-calculator.pdb
