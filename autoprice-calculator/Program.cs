@@ -69,8 +69,21 @@ namespace autoprice_calculator
         /// <returns>the price with age factored in</returns>
         decimal CalculatePriceWithAge(Car car)
         {
+            int age = car.AgeInMonths;
+            decimal price = car.PurchaseValue;
 
-            return 42;
+            //10 years * 12 months/year = 120 months
+            for(int i = 0; i < 120 && i < age; i++)
+            {
+                if(age == 0)
+                {
+                    break;
+                }
+                age--;
+                price =  price - (price * 0.05m);
+            }
+
+            return price;
         }
 
         /// <summary>
@@ -83,20 +96,35 @@ namespace autoprice_calculator
         /// <returns>Car price with miles factored in</returns>
         decimal CalculatePriceWithMiles(int NumberOfMiles, decimal currentResalePrice)
         {
-            return 42;
+            var price = currentResalePrice;
+
+            for(int i = 0; i <= NumberOfMiles / 1000 && i < 15; i++)
+            {
+                price = price - (price * 0.002m);
+            }
+
+            return price;
         }
 
         /// <summary>
-        ///  PREVIOUS OWNER:    If the car has had more than 2 previous owners, reduce its value 
-        /// by twenty-five(25) percent.If the car has had no previous
-        /// owners, add ten(10) percent of the FINAL car value at the end.
+        /// PREVIOUS OWNER: 
+        /// If the car has had more than 2 previous owners, reduce its value  by twenty-five(25) percent.
+        /// If the car has had no previous owners, add ten(10) percent of the FINAL car value at the end.
         /// </summary>
         /// <param name="numberOfPreviousOwners">Number of previous owners</param>
         /// <param name="currentResaleValue">because the algorithm computes the values in order</param>
         /// <returns>Car price with previous owners factored in</returns>
         decimal CalculatePriceWithPreviousOwners(int numberOfPreviousOwners, decimal currentResalePrice)
         {
-            return 42;
+            var price = currentResalePrice;
+            if (numberOfPreviousOwners == 0)
+            {
+                price = price + price * 0.10m;
+            } else if (numberOfPreviousOwners >= 2)
+            {
+                price = price - ( price * 0.25m);
+            }
+            return price;
         }
 
 
@@ -109,7 +137,13 @@ namespace autoprice_calculator
         /// <returns>The new price with colllisions factored in</returns>
         decimal CalculatePriceWithCollisions(int numberOfCollisions, decimal currentResaleValue)
         {
-            return 42;
+            var price = currentResaleValue;
+            for(int i = 0; i < numberOfCollisions && i < 5; i++)
+            {
+                price = price - (price * 0.02m);
+            }
+
+            return price;
         }
     }
 
@@ -118,7 +152,8 @@ namespace autoprice_calculator
 
         public void CalculateCarValue()
         {
-            AssertCarValue(25313.40m, 35000m, 3 * 12, 50000, 1, 1);
+            //             Final Price    Purchase Value   Age       Miles    Owners      Collisions
+            AssertCarValue(25313.40m,     35000m,          3 * 12,   50000,   1,          1);
             AssertCarValue(19688.20m, 35000m, 3 * 12, 150000, 1, 1);
             AssertCarValue(19688.20m, 35000m, 3 * 12, 250000, 1, 1);
             AssertCarValue(20090.00m, 35000m, 3 * 12, 250000, 1, 0);
