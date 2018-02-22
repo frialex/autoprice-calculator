@@ -13,7 +13,7 @@ namespace autoprice_calculator
         {
             Console.WriteLine("Checking the unit tests");
             var ut = new UnitTests();
-            ut.CalculateCarValue()
+            ut.CalculateCarValue();
 
             Console.WriteLine("Unit Tests successfull");
             //give time for the user to read the result
@@ -32,13 +32,32 @@ namespace autoprice_calculator
         public int NumberOfMiles { get; set; }
         public int NumberOfPreviousOwners { get; set; }
         public int NumberOfCollisions { get; set; }
+        
     }
 
     public class PriceDeterminator
     {
         public decimal DetermineCarPrice(Car car)
         {
-            throw new NotImplementedException("Implement here!");
+            /* *    Each factor should be off of the result of the previous value in the order of
+             *        1. AGE
+             *        2. MILES
+             *        3. PREVIOUS OWNER
+             *        4. COLLISION
+             *        
+             *    E.g., Start with the current value of the car, then adjust for age, take that  
+             *    result then adjust for miles, then collision, and finally previous owner. 
+             *    Note that if previous owner, had a positive effect, then it should be applied 
+             *    AFTER step 4. If a negative effect, then BEFORE step 4.
+             */
+
+            decimal price = CalculatePriceWithAge(car);
+            price = CalculatePriceWithMiles(car.NumberOfMiles, price);
+            price = CalculatePriceWithPreviousOwners(car.NumberOfPreviousOwners, price);
+            price = CalculatePriceWithCollisions(car.NumberOfCollisions, price);
+
+            return price;
+
         }
 
 
@@ -46,9 +65,9 @@ namespace autoprice_calculator
         /// AGE:    Given the number of months of how old the car is, reduce its value one-half (0.5) percent.
         ///After 10 years, it's value cannot be reduced further by age. This is not cumulative.
         /// </summary>
-        /// <param name="numMonthsOld">Age of the car in months</param>
-        /// <returns></returns>
-        float CalculatePriceWithAge(int numMonthsOld)
+        /// <param name="car">Taking the car object here since the algorithm wants it done in order and we need the starting price</param>
+        /// <returns>the price with age factored in</returns>
+        decimal CalculatePriceWithAge(Car car)
         {
 
             return 42;
@@ -59,9 +78,10 @@ namespace autoprice_calculator
         /// percent(0.2). Do not consider remaining miles.After 150,000 miles, it's 
         /// value cannot be reduced further by miles.
         /// </summary>
-        /// <param name="miles">The number of miles the car has</param>
-        /// <returns></returns>
-        float CalculatePriceWithMiles(int miles)
+        /// <param name="NumberOfMiles">The number of miles the car has</param>
+        /// <param name="currentResaleValue">because the algorithm computes the values in order</param>
+        /// <returns>Car price with miles factored in</returns>
+        decimal CalculatePriceWithMiles(int NumberOfMiles, decimal currentResalePrice)
         {
             return 42;
         }
@@ -71,9 +91,10 @@ namespace autoprice_calculator
         /// by twenty-five(25) percent.If the car has had no previous
         /// owners, add ten(10) percent of the FINAL car value at the end.
         /// </summary>
-        /// <param name="ownerNames"></param>
-        /// <returns></returns>
-        float CalculatePriceWithPreviousOwners(List<string> ownerNames)
+        /// <param name="numberOfPreviousOwners">Number of previous owners</param>
+        /// <param name="currentResaleValue">because the algorithm computes the values in order</param>
+        /// <returns>Car price with previous owners factored in</returns>
+        decimal CalculatePriceWithPreviousOwners(int numberOfPreviousOwners, decimal currentResalePrice)
         {
             return 42;
         }
@@ -83,9 +104,10 @@ namespace autoprice_calculator
         /// COLLISION:        For every reported collision the car has been in, remove two (2) 
         /// percent of it's value up to five (5) collisions.             
         /// </summary>
-        /// <param name="collisions"></param>
-        /// <returns></returns>
-        float CalculatePriceWithCollisions(List<Collision> collisions)
+        /// <param name="numberOfCollisions">number of collisions</param>
+        /// <param name="currentResaleValue">because the algorithm computes the values in order</param>
+        /// <returns>The new price with colllisions factored in</returns>
+        decimal CalculatePriceWithCollisions(int numberOfCollisions, decimal currentResaleValue)
         {
             return 42;
         }
